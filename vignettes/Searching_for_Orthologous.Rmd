@@ -53,11 +53,15 @@ Afterwards, we can proceed with the alignment and phylogenetic tree construction
 ```
 
 ```{r}
-aln <- msa(sequences = maize_ara$prot, ids = maize_ara$phylo_id, inhouse = FALSE)
-a <- aln$ali
-rownames(a) <-  maize_ara$phylo_id
-tr <- mltree(a)$tree
-plot(phangorn::midpoint(tr), cex = 0.7)
+if (requireNamespace("muscle", quietly = TRUE)){
+  aln <- msa(sequences = maize_ara$prot, ids = maize_ara$phylo_id, inhouse = FALSE)
+  a <- aln$ali
+  rownames(a) <-  maize_ara$phylo_id
+  tr <- mltree(a)$tree
+  plot(phangorn::midpoint(tr), cex = 0.7)
+} else {
+  message("Your must intall the package muscle in order to run this code")
+}
 ```
 
 If we want to be rigorous, and of course we do, there is  little, if anything, to conclude about orthology relationships between maize and arabidopsis GS proteins in view of these results. So, it's time to switch to a more suitable approach. Firstly, we will use the function `orthG()`, which takes as an argument the set of species to be included in the analysis and returns an orthology graph: two nodes (two GS proteins) are connected if and only if they are orthologs (an adjacency matrix is also provided if wished). 

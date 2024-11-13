@@ -183,7 +183,7 @@ mltree <- function(msa, df = TRUE, gapl = TRUE, model = "WAG"){
 #' @param sfile if different to FALSE, then it should be a string indicating the path to save a fasta alignment file.
 #' @details It should be noted that this function does not carry out the alignment itself.
 #' @return an alignment without gaps in form of matrix or a file containing such an alignment in fasta format.
-#' @examples gapless_msa(msa(sequences = c("APGW", "AGWC", "CWGA"),ids = c("a", "b", "c"))$ali)
+#' @examples \donttest{gapless_msa(msa(sequences = c("APGW", "AGWC", "CWGA"),ids = c("a", "b", "c"))$ali)}
 #' @seealso msa
 #' @importFrom seqinr read.fasta
 #' @export
