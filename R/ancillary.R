@@ -22,7 +22,10 @@
 #' @param inhouse logical, if TRUE the in-house MUSCLE software is used. It must be installed on your system and in the search path for executables.
 #' @details If seqtype is set to "cds" the sequences must not contain stop codons and they will be translated using the standard code. Afterward, the amino acid alignment will be used to lead the codon alignment.
 #' @return Returns a list of four elements. The first one ($seq) provides the sequences analyzed, the second element ($id) returns the identifiers, the third element ($aln) provides the alignment in fasta format and the fourth element ($ali) gives the alignment in matrix format.
-#' @examples msa(sequences = c("APGW", "AGWC", "CWGA"),ids = c("a", "b", "c"))
+#' @examples
+#' if (requireNamespace("muscle", quietly = TRUE)) {
+#'   msa(sequences = c("APGW", "AGWC", "CWGA"), ids = c("a", "b", "c"))
+#' }
 #' @importFrom bio3d seqbind
 #' @importFrom bio3d seqaln
 #' @importFrom bio3d write.fasta
@@ -142,9 +145,11 @@ msa <- function (sequences, ids = names(sequences), seqtype = "prot", sfile = FA
 #' @details The function makes a NJ tree and then improvove it using an optimization procedure based on ML.
 #' @return a ML optimized tree (and parameters)
 #' @examples
-#' a <- msa(sequences=c("RAPGT", "KMPGT", "ESGGT"), ids = letters[1:3])$ali
-#' rownames(a) <- letters[1:3]
-#' tr <- mltree(a)$tree
+#' if (requireNamespace("muscle", quietly = TRUE)) {
+#'   a <- msa(sequences = c("RAPGT", "KMPGT", "ESGGT"), ids = letters[1:3])$ali
+#'   rownames(a) <- letters[1:3]
+#'   tr <- mltree(a)$tree
+#' }
 #' @seealso gapless_msa
 #' @importFrom ape nj
 #' @importFrom ape dist.aa
