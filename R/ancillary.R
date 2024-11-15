@@ -103,6 +103,7 @@ msa <- function (sequences, ids = names(sequences), seqtype = "prot", sfile = FA
 #' @return Returns a list of four elements. The first one ($seq) provides the sequences analyzed, the second element ($id) returns the identifiers, the third element ($aln) provides the alignment in fasta format and the fourth element ($ali) gives the alignment in matrix format.
 #' @examples \dontrun{msa2(sequences = c("APGW", "AGWC", "CWGA"), ids = c("a", "b", "c"))}
 #' @importFrom seqinr translate
+#' @importFrom muscle muscle
 #' @export
 
 msa2 <- function(sequences, ids = names(sequences), seqtype = "prot", sfile = FALSE){
@@ -128,32 +129,27 @@ msa2 <- function(sequences, ids = names(sequences), seqtype = "prot", sfile = FA
   } else {
     stop("You must install the package Biostrings in order to use this function")
   }
-
-  if (requireNamespace('muscle', quietly = TRUE)){
-    aln1 <- muscle::muscle(seq)
-    aln <- list()
-    aln$seq <- sequences
-    aln$ids <- ids
-    aln$aln <- as.character(aln1)
-    l <- sapply(aln$aln, function(x) strsplit(x, split = ""))
-    aln$ali <- matrix(unlist(l), nrow = length(sequences),
-                      byrow = TRUE)
-    if (sfile != FALSE) {
-      for (i in 1:length(aln$aln)) {
-        t <- paste(">", aln$ids[i], sep = "")
-        cat(t, file = sfile, append = TRUE)
-        if (seqtype == "cds"){
-          tt <- paste("\n", aln$cod[i], "\n", sep = "")
-        } else {
-          tt <- paste("\n", aln$aln[i], "\n", sep = "")
-        }
-        cat(tt, file = sfile, append = TRUE)
+  aln1 <- muscle(seq)
+  aln <- list()
+  aln$seq <- sequences
+  aln$ids <- ids
+  aln$aln <- as.character(aln1)
+  l <- sapply(aln$aln, function(x) strsplit(x, split = ""))
+  aln$ali <- matrix(unlist(l), nrow = length(sequences),
+                    byrow = TRUE)
+  if (sfile != FALSE) {
+    for (i in 1:length(aln$aln)) {
+      t <- paste(">", aln$ids[i], sep = "")
+      cat(t, file = sfile, append = TRUE)
+      if (seqtype == "cds"){
+        tt <- paste("\n", aln$cod[i], "\n", sep = "")
+      } else {
+        tt <- paste("\n", aln$aln[i], "\n", sep = "")
       }
+      cat(tt, file = sfile, append = TRUE)
     }
-    return(aln)
-  } else {
-    stop("You must install the package muscle in order to use this function")
   }
+  return(aln)
 }
 ## ---------------------------------------------------------------- ##
 #                     mltree <- function()                           #

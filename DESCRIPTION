@@ -17,6 +17,7 @@ Imports:
   bio3d,
   castor,
   igraph,
+  muscle,
   phangorn,
   phytools,
   seqinr,
@@ -26,7 +27,6 @@ Suggests:
   Biostrings,
   fs,
   knitr,
-  muscle,
   rmarkdown,
   testthat
 VignetteBuilder: knitr
