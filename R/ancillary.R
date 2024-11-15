@@ -131,30 +131,29 @@ msa2 <- function(sequences, ids = names(sequences), seqtype = "prot", sfile = FA
 
   if (requireNamespace('muscle', quietly = TRUE)){
     aln1 <- muscle::muscle(seq)
+    aln <- list()
+    aln$seq <- sequences
+    aln$ids <- ids
+    aln$aln <- as.character(aln1)
+    l <- sapply(aln$aln, function(x) strsplit(x, split = ""))
+    aln$ali <- matrix(unlist(l), nrow = length(sequences),
+                      byrow = TRUE)
+    if (sfile != FALSE) {
+      for (i in 1:length(aln$aln)) {
+        t <- paste(">", aln$ids[i], sep = "")
+        cat(t, file = sfile, append = TRUE)
+        if (seqtype == "cds"){
+          tt <- paste("\n", aln$cod[i], "\n", sep = "")
+        } else {
+          tt <- paste("\n", aln$aln[i], "\n", sep = "")
+        }
+        cat(tt, file = sfile, append = TRUE)
+      }
+    }
+    return(aln)
   } else {
     stop("You must install the package muscle in order to use this function")
   }
-
-  aln <- list()
-  aln$seq <- sequences
-  aln$ids <- ids
-  aln$aln <- as.character(aln1)
-  l <- sapply(aln$aln, function(x) strsplit(x, split = ""))
-  aln$ali <- matrix(unlist(l), nrow = length(sequences),
-                    byrow = TRUE)
-  if (sfile != FALSE) {
-    for (i in 1:length(aln$aln)) {
-      t <- paste(">", aln$ids[i], sep = "")
-      cat(t, file = sfile, append = TRUE)
-      if (seqtype == "cds"){
-        tt <- paste("\n", aln$cod[i], "\n", sep = "")
-      } else {
-        tt <- paste("\n", aln$aln[i], "\n", sep = "")
-      }
-      cat(tt, file = sfile, append = TRUE)
-    }
-  }
-  return(aln)
 }
 ## ---------------------------------------------------------------- ##
 #                     mltree <- function()                           #
