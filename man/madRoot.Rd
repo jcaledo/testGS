@@ -21,7 +21,13 @@ Finds the root of an unrooted phylogenetic tree by minimizing the relative devia
 This function is a slight modification of the code provided by Tria et al at https://www.mikrobio.uni-kiel.de/de/ag-dagan/ressourcen.
 }
 \examples{
+# Example 1:
 madRoot("(c:1.182246599,b:0.4169984702,a:0.1582465793);")
+# Example 2:
+\dontrun{
+a <- msa(sequences=c("RAPGT", "KMPGT", "ESGGT"), ids = letters[1:3])$ali
+tr <- mltree(a)$tree
+rtr <- madRoot(tr) }
 }
 \references{
 Tria, F. D. K., Landan, G. and Dagan, T. Nat. Ecol. Evol. 1, 0193 (2017).

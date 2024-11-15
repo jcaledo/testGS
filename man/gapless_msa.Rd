@@ -25,7 +25,10 @@ Removes gaps in a given msa.
 It should be noted that this function does not carry out the alignment itself.
 }
 \examples{
+# Example 1:
 gapless_msa(matrix(c("A", "-", "-", "P", "A", "-", "G", "G", "C", "W", "W", "W", "-", "C", "G", "-", "-", "A"), nrow=3))
+# Example 2:
+\dontrun{gapless_msa(msa(sequences = c("APGW", "AGWC", "CWGA"),ids = c("a", "b", "c"))$ali)}
 }
 \seealso{
 msa

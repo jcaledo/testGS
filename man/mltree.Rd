@@ -25,7 +25,13 @@ Given an alignment builds an ML tree.
 The function makes a NJ tree and then improvove it using an optimization procedure based on ML.
 }
 \examples{
+# Example 1:
 mltree(matrix(c("R","K","E","A","M","S","P","P","G"), nrow=3, dimnames = list(letters[1:3], 1:3)))$tree
+# Example 2:
+\dontrun{
+a <- msa(sequences=c("RAPGT", "KMPGT", "ESGGT"), ids = letters[1:3])$ali
+mltree(a)$tree
+}
 }
 \seealso{
 gapless_msa
