@@ -21,7 +21,7 @@
 #' @param sfile if different to FALSE, then it should be a string indicating the path to save a fasta alignment file.
 #' @details If seqtype is set to "cds" the sequences must not contain stop codons and they will be translated using the standard code. Afterward, the amino acid alignment will be used to lead the codon alignment.
 #' @return Returns a list of four elements. The first one ($seq) provides the sequences analyzed, the second element ($id) returns the identifiers, the third element ($aln) provides the alignment in fasta format and the fourth element ($ali) gives the alignment in matrix format.
-#' @examples msa(sequences = c("APGW", "AGWC", "CWGA"), ids = c("a", "b", "c"))
+#' @examples \dontrun{msa(sequences = c("APGW", "AGWC", "CWGA"), ids = c("a", "b", "c"))}
 #' @importFrom bio3d seqbind
 #' @importFrom bio3d seqaln
 #' @importFrom bio3d write.fasta
