@@ -2,7 +2,6 @@
 ## ----------- ancillary.R ------------ ##
 #                                        #
 #      msa                               #
-#      msa2                              #
 #      mltree                            #
 #      gapless_msa                       #
 #      madRoot                           #
@@ -88,69 +87,6 @@ msa <- function (sequences, ids = names(sequences), seqtype = "prot", sfile = FA
   return(aln)
 }
 
-
-## ---------------------------------------------------------------- ##
-#         msa2 <- function(sequences, ids, seqtype, sfile)           #
-## ---------------------------------------------------------------- ##
-#' Multiple Sequence Alignment
-#' @description Aligns multiple protein, DNA or CDS sequences using the R package 'muscle'.
-#' @usage msa2(sequences, ids = names(sequences), seqtype = "prot", sfile = FALSE)
-#' @param sequences vector containing the sequences as strings.
-#' @param seqtype it should be either "prot" of "dna" or "cds" (see details).
-#' @param ids character vector containing the sequences' ids.
-#' @param sfile if different to FALSE, then it should be a string indicating the path to save a fasta alignment file.
-#' @details If seqtype is set to "cds" the sequences must not contain stop codons and they will be translated using the standard code. Afterward, the amino acid alignment will be used to lead the codon alignment.
-#' @return Returns a list of four elements. The first one ($seq) provides the sequences analyzed, the second element ($id) returns the identifiers, the third element ($aln) provides the alignment in fasta format and the fourth element ($ali) gives the alignment in matrix format.
-#' @examples \dontrun{msa2(sequences = c("APGW", "AGWC", "CWGA"), ids = c("a", "b", "c"))}
-#' @importFrom seqinr translate
-#' @importFrom muscle muscle
-#' @export
-
-msa2 <- function(sequences, ids = names(sequences), seqtype = "prot", sfile = FALSE){
-
-  tr <- function(seq, genetic_code = 1){
-    seq <- gsub(" ", "", seq)
-    seq <- strsplit(seq, "")[[1]]
-    output <- paste(translate(seq, numcode = genetic_code), collapse = "")
-    return(output)
-  }
-  if (length(sequences) < 2) {
-    stop("At least two sequences are required!")
-  } else if (length(sequences) != length(ids)) {
-    stop("The number of sequences and sequences' ids doesn't match!")
-  }
-
-  if (requireNamespace('Biostrings', quietly = TRUE)){
-    if (seqtype == "prot"){
-      seq <- Biostrings::AAStringSet(sequences)
-    } else if (seqtype == "dna"){
-      seq <- Biostrings::DNAStringSet(sequences)
-    }
-  } else {
-    stop("You must install the package Biostrings in order to use this function")
-  }
-  aln1 <- muscle(seq)
-  aln <- list()
-  aln$seq <- sequences
-  aln$ids <- ids
-  aln$aln <- as.character(aln1)
-  l <- sapply(aln$aln, function(x) strsplit(x, split = ""))
-  aln$ali <- matrix(unlist(l), nrow = length(sequences),
-                    byrow = TRUE)
-  if (sfile != FALSE) {
-    for (i in 1:length(aln$aln)) {
-      t <- paste(">", aln$ids[i], sep = "")
-      cat(t, file = sfile, append = TRUE)
-      if (seqtype == "cds"){
-        tt <- paste("\n", aln$cod[i], "\n", sep = "")
-      } else {
-        tt <- paste("\n", aln$aln[i], "\n", sep = "")
-      }
-      cat(tt, file = sfile, append = TRUE)
-    }
-  }
-  return(aln)
-}
 ## ---------------------------------------------------------------- ##
 #                     mltree <- function()                           #
 ## ---------------------------------------------------------------- ##
