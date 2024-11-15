@@ -4,7 +4,7 @@
 \alias{msa}
 \title{Multiple Sequence Alignment}
 \usage{
-msa(sequences, ids = names(sequences), seqtype = "prot", sfile = FALSE, inhouse = FALSE)
+msa(sequences, ids = names(sequences), seqtype = "prot", sfile = FALSE)
 }
 \arguments{
 \item{sequences}{vector containing the sequences as strings.}
@@ -14,8 +14,6 @@ msa(sequences, ids = names(sequences), seqtype = "prot", sfile = FALSE, inhouse 
 \item{seqtype}{it should be either "prot" of "dna" or "cds" (see details).}
 
 \item{sfile}{if different to FALSE, then it should be a string indicating the path to save a fasta alignment file.}
-
-\item{inhouse}{logical, if TRUE the in-house MUSCLE software is used. It must be installed on your system and in the search path for executables.}
 }
 \value{
 Returns a list of four elements. The first one ($seq) provides the sequences analyzed, the second element ($id) returns the identifiers, the third element ($aln) provides the alignment in fasta format and the fourth element ($ali) gives the alignment in matrix format.
@@ -27,5 +25,5 @@ Aligns multiple protein, DNA or CDS sequences.
 If seqtype is set to "cds" the sequences must not contain stop codons and they will be translated using the standard code. Afterward, the amino acid alignment will be used to lead the codon alignment.
 }
 \examples{
-if (requireNamespace("muscle", quietly = TRUE)){msa(sequences = c("APGW", "AGWC", "CWGA"),ids = c("a", "b", "c"))}
+msa(sequences = c("APGW", "AGWC", "CWGA"), ids = c("a", "b", "c"))
 }
