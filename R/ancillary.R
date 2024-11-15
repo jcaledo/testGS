@@ -22,7 +22,8 @@
 #' @param sfile if different to FALSE, then it should be a string indicating the path to save a fasta alignment file.
 #' @details Either Clustal Omega or MUSCLE must be installed, and their executable be in your system's PATH. If seqtype is set to "cds" the sequences must not contain stop codons and they will be translated using the standard code. Afterward, the amino acid alignment will be used to lead the codon alignment.
 #' @return Returns a list of four elements. The first one ($seq) provides the sequences analyzed, the second element ($id) returns the identifiers, the third element ($aln) provides the alignment in fasta format and the fourth element ($ali) gives the alignment in matrix format.
-#' @examples \dontrun{msa(sequences = c("APGW", "AGWC", "CWGA"), ids = c("a", "b", "c"))}
+#' @examples
+#' \dontrun{msa(sequences = c("APGW", "AGWC", "CWGA"), ids = c("a", "b", "c"))}
 #' @importFrom bio3d seqbind
 #' @importFrom bio3d seqaln
 #' @importFrom bio3d write.fasta
@@ -102,7 +103,8 @@ msa <- function (sequences, ids = names(sequences), seqtype = "prot", method = "
 #' @return a ML optimized tree (and parameters)
 #' @examples
 #' # Example 1:
-#' mltree(matrix(c("R","K","E","A","M","S","P","P","G"), nrow=3, dimnames = list(letters[1:3], 1:3)))$tree
+#' mltree(matrix(c("R","K","E","A","M","S","P","P","G"), nrow=3,
+#'        dimnames = list(letters[1:3], 1:3)))$tree
 #' # Example 2:
 #' \dontrun{
 #' a <- msa(sequences=c("RAPGT", "KMPGT", "ESGGT"), ids = letters[1:3])$ali
@@ -153,7 +155,8 @@ mltree <- function(msa, df = TRUE, gapl = TRUE, model = "WAG"){
 #'                 "-",  "-",  "C",  "W",  "G",  "A" ), nrow = 3, byrow =TRUE)
 #' gapless_msa(aln)
 #' # Example 2:
-#' \dontrun{gapless_msa(msa(sequences = c("APGW", "AGWC", "CWGA"),ids = c("a", "b", "c"))$ali)}
+#' \dontrun{gapless_msa(msa(sequences = c("APGW", "AGWC", "CWGA"),
+#'                      ids = c("a", "b", "c"))$ali)}
 #' @seealso msa
 #' @importFrom seqinr read.fasta
 #' @export
