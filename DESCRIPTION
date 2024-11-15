@@ -26,6 +26,7 @@ Suggests:
   Biostrings,
   fs,
   knitr,
+  muscle,
   rmarkdown,
   testthat
 VignetteBuilder: knitr
