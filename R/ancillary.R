@@ -10,16 +10,17 @@
 
 
 ## ---------------------------------------------------------------- ##
-#         msa <- function(sequences, ids, seqtype, sfile)            #
+#      msa <- function(sequences, ids, seqtype, method, sfile)       #
 ## ---------------------------------------------------------------- ##
 #' Multiple Sequence Alignment
 #' @description Aligns multiple protein, DNA or CDS sequences.
-#' @usage msa(sequences, ids = names(sequences), seqtype = "prot", sfile = FALSE)
+#' @usage msa(sequences, ids = names(sequences), seqtype = "prot", method = "muscle", sfile = FALSE)
 #' @param sequences vector containing the sequences as strings.
 #' @param seqtype it should be either "prot" of "dna" or "cds" (see details).
+#' @param method either "muscle" or "clustalo".
 #' @param ids character vector containing the sequences' ids.
 #' @param sfile if different to FALSE, then it should be a string indicating the path to save a fasta alignment file.
-#' @details If seqtype is set to "cds" the sequences must not contain stop codons and they will be translated using the standard code. Afterward, the amino acid alignment will be used to lead the codon alignment.
+#' @details Either Clustal Omega or MUSCLE must be installed, and their executable be in your system's PATH. If seqtype is set to "cds" the sequences must not contain stop codons and they will be translated using the standard code. Afterward, the amino acid alignment will be used to lead the codon alignment.
 #' @return Returns a list of four elements. The first one ($seq) provides the sequences analyzed, the second element ($id) returns the identifiers, the third element ($aln) provides the alignment in fasta format and the fourth element ($ali) gives the alignment in matrix format.
 #' @examples \dontrun{msa(sequences = c("APGW", "AGWC", "CWGA"), ids = c("a", "b", "c"))}
 #' @importFrom bio3d seqbind
@@ -28,7 +29,7 @@
 #' @importFrom seqinr translate
 #' @export
 
-msa <- function (sequences, ids = names(sequences), seqtype = "prot", sfile = FALSE){
+msa <- function (sequences, ids = names(sequences), seqtype = "prot", method = "muscle", sfile = FALSE){
 
   tr <- function(seq, genetic_code = 1){
     seq <- gsub(" ", "", seq)
@@ -55,7 +56,7 @@ msa <- function (sequences, ids = names(sequences), seqtype = "prot", sfile = FA
     c <- c + 1
     sqs <- bio3d::seqbind(sqs, seqs[[c]], blank = "-")
   }
-  aln <- bio3d::seqaln(sqs, id = ids, exefile = "muscle")
+  aln <- bio3d::seqaln(sqs, id = ids, exefile = method)
   aln$seq <- sequences
   if (seqtype == "cds"){
     aln$cod <- aln$ali

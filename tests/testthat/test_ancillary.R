@@ -14,7 +14,8 @@ test_that("msa() works properly", {
                  "MSEPIRVLVTGAAGQIAYSLLYSIGNGSVFGKDQPIILVLLDITPMM")
   names(sequences) <- c("P19446", "P40925", "P40926")
 
-  b <- msa(sequences = sequences, ids = c("wmelon", "cyt", "mit"))
+  b <- msa(sequences = sequences, ids = c("wmelon", "cyt", "mit"), method = "muscle")
+  c <- msa(sequences = sequences, ids = c("wmelon", "cyt", "mit"), method = "clustalo")
 
   # a <- msa(sequences = sequences, ids = c("wmelon", "cyt", "mit"), inhouse = FALSE) # using muscle R pkg
   # b <- msa(sequences = sequences,
@@ -42,6 +43,15 @@ test_that("msa() works properly", {
   expect_equal(b$id, c("wmelon", "cyt", "mit" ))
   expect_is(b[[2]], "matrix")
   expect_is(b[[4]], 'character')
+
+  expect_is(c, "fasta")
+  expect_equal(length(c), 4)
+  expect_is(c[[1]], 'character')
+  expect_equal(length(c[[1]]), 3)
+  expect_equal(dim(c$ali), c(3,74))
+  expect_equal(c$id, c("wmelon", "cyt", "mit" ))
+  expect_is(c[[2]], "matrix")
+  expect_is(c[[4]], 'character')
 })
 
 ## ----------------------------------------------- ##
