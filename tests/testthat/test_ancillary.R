@@ -14,7 +14,7 @@ test_that("msa() works properly", {
                  "MSEPIRVLVTGAAGQIAYSLLYSIGNGSVFGKDQPIILVLLDITPMM")
   names(sequences) <- c("P19446", "P40925", "P40926")
 
-  b <- msa(sequences = sequences, ids = c("wmelon", "cyt", "mit"), method = "muscle")
+  b <- msa(sequences = sequences, ids = c("wmelon", "cyt", "mit"), method = "muscle3")
   c <- msa(sequences = sequences, ids = c("wmelon", "cyt", "mit"), method = "clustalo")
 
   # a <- msa(sequences = sequences, ids = c("wmelon", "cyt", "mit"), inhouse = FALSE) # using muscle R pkg

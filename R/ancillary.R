@@ -2,35 +2,90 @@
 ## ----------- ancillary.R ------------ ##
 #                                        #
 #      msa                               #
+#      msa2                              #
 #      mltree                            #
 #      gapless_msa                       #
 #      madRoot                           #
 #                                        #
 ## ------------------------------------ ##
 
-
 ## ---------------------------------------------------------------- ##
 #      msa <- function(sequences, ids, seqtype, method, sfile)       #
 ## ---------------------------------------------------------------- ##
 #' Multiple Sequence Alignment
-#' @description Aligns multiple protein, DNA or CDS sequences.
-#' @usage msa(sequences, ids = names(sequences), seqtype = "prot", method = "muscle", sfile = FALSE)
+#' @description Aligns multiple protein, DNA sequences using the msa package.
+#' @usage msa(sequences, ids = names(sequences), seqtype = "protein", method = "Muscle", sfile = FALSE)
+#' @param sequences vector containing the sequences as strings.
+#' @param ids character vector containing the sequences' ids.
+#' @param seqtype it should be either "protein" or "dna".
+#' @param method currently, "Muscle", ClustalW", "ClustalOmega" are supported.
+#' @param sfile if different to FALSE, then it should be a string indicating the path to save a fasta alignment file.
+#' @details The msa package works without requiring you to install MUSCLE or other alignment tools. The msa package includes its own precompiled binaries for MUSCLE, ClustalW, and Clustal Omega, which are used internally
+#' @return Returns a in matrix (dataframe) format. Optionally, the fasta format of the alignment can be saved.
+#' @examples \dontrun{msa(sequences = c("APGW", "AGWC", "CWGA"), ids = c("a", "b", "c"))}
+#' @importFrom msa msa
+#' @export
+
+msa <- function(sequences, ids = names(sequences), seqtype = "protein", method = "Muscle", sfile = FALSE){
+
+  names(sequences) <- ids
+
+  tr <- function(seq, genetic_code = 1){
+    seq <- gsub(" ", "", seq)
+    seq <- strsplit(seq, "")[[1]]
+    output <- paste(translate(seq, numcode = genetic_code), collapse = "")
+
+    return(output)
+  }
+
+  if (length(sequences) < 2) {
+    stop("At least two sequences are required!")
+  } else if (length(sequences) != length(ids)) {
+    stop("The number of sequences and sequences' ids doesn't match!")
+  }
+  if (seqtype == "dna"){
+    dnaSeq <- sequences
+    cod <- strsplit(gsub("(.{3})", "\\1 ", dnaSeq), split = " ")
+    sequences <- unlist(lapply(sequences, function(x) tr(x)))
+  }
+
+  aln <- msa::msa(inputSeqs = sequences, type = seqtype, method = method)
+
+  alnseq <- as.character(aln)
+
+  if (sfile != FALSE){
+    for (i in 1:length(alnseq)){
+      cat(">", ids[i], "\n", alnseq[i], "\n", file = sfile, append = TRUE)
+    }
+  }
+
+  ali <- as.data.frame(do.call(rbind, strsplit(alnseq, split = "")))
+
+  return(ali)
+}
+
+## ---------------------------------------------------------------- ##
+#      msa2 <- function(sequences, ids, seqtype, method, sfile)      #
+## ---------------------------------------------------------------- ##
+#' Multiple Sequence Alignment
+#' @description Aligns multiple protein, DNA or CDS sequences using inhouse software.
+#' @usage msa2(sequences, ids = names(sequences), seqtype = "prot", method, sfile = FALSE)
 #' @param sequences vector containing the sequences as strings.
 #' @param seqtype it should be either "prot" of "dna" or "cds" (see details).
-#' @param method either "muscle" or "clustalo".
+#' @param method the software to be used for the alignment, as invoked in your system. For instance, "muscle" or "clustalo".
 #' @param ids character vector containing the sequences' ids.
 #' @param sfile if different to FALSE, then it should be a string indicating the path to save a fasta alignment file.
 #' @details Either Clustal Omega or MUSCLE must be installed, and their executable be in your system's PATH. If seqtype is set to "cds" the sequences must not contain stop codons and they will be translated using the standard code. Afterward, the amino acid alignment will be used to lead the codon alignment.
 #' @return Returns a list of four elements. The first one ($seq) provides the sequences analyzed, the second element ($id) returns the identifiers, the third element ($aln) provides the alignment in fasta format and the fourth element ($ali) gives the alignment in matrix format.
 #' @examples
-#' \dontrun{msa(sequences = c("APGW", "AGWC", "CWGA"), ids = c("a", "b", "c"))}
+#' \dontrun{msa2(sequences = c("APGW", "AGWC", "CWGA"), ids = c("a", "b", "c"))}
 #' @importFrom bio3d seqbind
 #' @importFrom bio3d seqaln
 #' @importFrom bio3d write.fasta
 #' @importFrom seqinr translate
 #' @export
 
-msa <- function (sequences, ids = names(sequences), seqtype = "prot", method = "muscle", sfile = FALSE){
+msa2 <- function (sequences, ids = names(sequences), seqtype = "prot", method = "muscle", sfile = FALSE){
 
   tr <- function(seq, genetic_code = 1){
     seq <- gsub(" ", "", seq)
