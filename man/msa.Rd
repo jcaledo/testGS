@@ -4,28 +4,29 @@
 \alias{msa}
 \title{Multiple Sequence Alignment}
 \usage{
-msa(sequences, ids = names(sequences), seqtype = "protein", method = "Muscle", sfile = FALSE)
+msa(sequences, ids = names(sequences), seqtype = "prot", method, sfile = FALSE)
 }
 \arguments{
 \item{sequences}{vector containing the sequences as strings.}
 
 \item{ids}{character vector containing the sequences' ids.}
 
-\item{seqtype}{it should be either "protein" or "dna".}
+\item{seqtype}{it should be either "prot" of "dna" or "cds" (see details).}
 
-\item{method}{currently, "Muscle", ClustalW", "ClustalOmega" are supported.}
+\item{method}{the software to be used for the alignment, as invoked in your system. For instance, "muscle3" or "clustalo".}
 
 \item{sfile}{if different to FALSE, then it should be a string indicating the path to save a fasta alignment file.}
 }
 \value{
-Returns a in matrix (dataframe) format. Optionally, the fasta format of the alignment can be saved.
+Returns a list of four elements. The first one ($seq) provides the sequences analyzed, the second element ($id) returns the identifiers, the third element ($aln) provides the alignment in fasta format and the fourth element ($ali) gives the alignment in matrix format.
 }
 \description{
-Aligns multiple protein, DNA sequences using the msa package.
+Aligns multiple protein, DNA or CDS sequences using inhouse software.
 }
 \details{
-The msa package works without requiring you to install MUSCLE or other alignment tools. The msa package includes its own precompiled binaries for MUSCLE, ClustalW, and Clustal Omega, which are used internally
+Either Clustal Omega or MUSCLE must be installed, and their executable be in your system's PATH. If seqtype is set to "cds" the sequences must not contain stop codons and they will be translated using the standard code. Afterward, the amino acid alignment will be used to lead the codon alignment.
 }
 \examples{
-\dontrun{msa(sequences = c("APGW", "AGWC", "CWGA"), ids = c("a", "b", "c"))}
+\dontrun{msa(sequences = c("APGW", "AGWC", "CWGA"),
+                             ids = c("a", "b", "c"))}
 }

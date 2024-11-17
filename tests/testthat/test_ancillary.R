@@ -1,6 +1,5 @@
 library(orthGS)
 
-
 ## ---------------------------------------------- ##
 #             Testing msa                          #
 ## ---------------------------------------------- ##
@@ -116,7 +115,8 @@ test_that("madRoot() works properly", {
   # rownames(a) <- c("PpGS1b1", "PpGS1b2", "PpGS1a", "AbiGS1b", "AbiGS1a", "AtrGS1a", "AtrGS1b1", "AtrGS1b2", "AtrGS2", "OsaGS1b1", "OsaGS1b2", "OsaGS1b3","OsaGS2")
 
   a <- msa(sequences = c(PpGS1b1, PpGS1b2, PpGS1a, AbiGS1b, AbiGS1a, AtrGS1a, AtrGS1b1, AtrGS1b2, AtrGS2, OsaGS1b1, OsaGS1b2, OsaGS1b3, OsaGS2),
-                     ids = c("PpGS1b1", "PpGS1b2", "PpGS1a", "AbiGS1b", "AbiGS1a", "AtrGS1a", "AtrGS1b1", "AtrGS1b2", "AtrGS2", "OsaGS1b1", "OsaGS1b2", "OsaGS1b3","OsaGS2"))$ali
+                     ids = c("PpGS1b1", "PpGS1b2", "PpGS1a", "AbiGS1b", "AbiGS1a", "AtrGS1a", "AtrGS1b1", "AtrGS1b2", "AtrGS2", "OsaGS1b1", "OsaGS1b2", "OsaGS1b3","OsaGS2"),
+                     method = "muscle3")$ali
 
   utr <- mltree(a)$tree
   phy <- madRoot(tree = utr, output_mode = "phylo")
