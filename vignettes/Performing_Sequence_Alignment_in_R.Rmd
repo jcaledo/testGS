@@ -53,9 +53,9 @@ For linux OS you may use either `apt`,  `dnf`, `pacman` or whatever the package 
 As an example, we will use a small sample of sequences that can be obtained from the **orthGS** package.
 
 ```{r}
-ara <- subsetGS("Arabidopsis thaliana")
-muscle_aln <- msa(sequences = ara$prot, ids = ara$phylo_id, method = "muscle3")
-muscle_aln
+# ara <- subsetGS("Arabidopsis thaliana")
+# muscle_aln <- msa(sequences = ara$prot, ids = ara$phylo_id, method = "muscle3")
+# muscle_aln
 ```
 
 If we opt to use Clustal Omega instead of MUSCLE:
