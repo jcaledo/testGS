@@ -46,11 +46,11 @@ maize_ara <- subsetGS(c("Zea mays", "Arabidopsis thaliana"))
 Afterwards, we can proceed with the alignment and phylogenetic tree construction. For the first of these tasks, that is, the alignment, you can use whatever your favorite resource is. Nevertheless, the function `msa` of **orthGS** allows you to perform the task fluently. Note, that to use this function you need the executable of either MUSCLE or Clustal-Omega in the PATH of your system (see the vignette *Performing Sequence Alignment in R*).
 
 ```{r}
-aln <- msa(sequences = maize_ara$prot, ids = maize_ara$phylo_id)
-a <- aln$ali
-rownames(a) <-  maize_ara$phylo_id
-tr <- mltree(a)$tree
-plot(phangorn::midpoint(tr), cex = 0.7)
+# aln <- msa(sequences = maize_ara$prot, ids = maize_ara$phylo_id)
+# a <- aln$ali
+# rownames(a) <-  maize_ara$phylo_id
+# tr <- mltree(a)$tree
+# plot(phangorn::midpoint(tr), cex = 0.7)
 ```
 
 

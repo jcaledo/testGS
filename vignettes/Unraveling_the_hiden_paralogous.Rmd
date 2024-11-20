@@ -74,19 +74,19 @@ Together, these species present 29 GS isoforms: 12 GS1a proteins (one per specie
 Next, we point a few instructions to plot both the species and protein family trees using the data included into the orthGS package.
 
 ```{r, eval=FALSE, include=TRUE}
-# Plot species tree:
-str <- ape::read.tree(text = "((((Pa,Psm),(Pp,Pin)),(Abi,Ap)),((Ara,(Pod,Nag)),(Sci,(Tba,Tax))));")
-plot(str)
-# Load GS sequence data:
-agf <- agf 
-# Aligning sequences and building an unrooted tree 
-# (Remember you need the MUSCLE software in your path):
-conif <- agf[which(agf$short %in% str$tip.label), ]
-ptr <- mltree(msa(sequences = conif$prot, ids = conif$phylo_id)$ali)$tree
-
-# Now, we root the tree:
-ptr <- madRoot(ptr)
-plot(ptr, use.edge.length = FALSE, cex = 0.6)
+# # Plot species tree:
+# str <- ape::read.tree(text = "((((Pa,Psm),(Pp,Pin)),(Abi,Ap)),((Ara,(Pod,Nag)),(Sci,(Tba,Tax))));")
+# plot(str)
+# # Load GS sequence data:
+# agf <- agf 
+# # Aligning sequences and building an unrooted tree 
+# # (Remember you need the MUSCLE software in your path):
+# conif <- agf[which(agf$short %in% str$tip.label), ]
+# ptr <- mltree(msa(sequences = conif$prot, ids = conif$phylo_id)$ali)$tree
+# 
+# # Now, we root the tree:
+# ptr <- madRoot(ptr)
+# plot(ptr, use.edge.length = FALSE, cex = 0.6)
 ```
 
 
