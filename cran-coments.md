@@ -8,7 +8,7 @@ In the current version, the use of the Bioconductor package muscle (previously l
 
 * win-builder (devel and release)
 
-* rhub: linux (R-devel), macos (R-devel), macos-arm64 (R-devel), windows (R-devel), nold-linux.
+* rhubv2: linux (R-devel), macos (R-devel), macos-arm64 (R-devel), windows (R-devel).
 
 ## R CMD check results
 
