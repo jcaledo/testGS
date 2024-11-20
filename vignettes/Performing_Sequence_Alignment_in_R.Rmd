@@ -27,13 +27,13 @@ Some of the current programs for sequence alignment include, but are not limited
 * MAFFT 
 * T-Coffee
 
-Although MSA is not on the focus of the **orthGS** package, it is an important tool for phylogenetic reconstructions and orthology/paralogy analyses. Thus, in the current vignette we offer some recomendations to perform multiple alignments without leaving the R context.
+Although MSA is not on the focus of the **orthGS** package, it is an important tool for phylogenetic reconstructions and orthology/paralogy analyses. Thus, in the current vignette we offer some indications to perform multiple alignments without leaving the R context.
 
 ## Downloading and installing MUSCLE and Clustal Omega
 
 The current version of MUSCLE is v5. Nevertheless, since most R packages are generally designed for earlier versions of MUSCLE (like v3), you may want to dowload an install MUSCLE v3.8.31 (https://drive5.com/muscle/downloads_v3.htm). In my computer I have renamed the binary to ´muscle3´ because I have also installed MUSCLE v5 (https://github.com/rcedgar/muscle/releases/tag/v5.3). Both versions of the software are accessible via my system's PATH environment variable and can be invoked as ´muscle3´ (v3.8.31) or ´muscle´ (v5).
 
-To download and install Clustal Omega you can go to https://www.clustal.org/omega/ and follows the instructions. Nevertheless, if you have a linux based OS you may benefit of the suitable package manager. For instance, for macOS I use `Homebrew`, which can be installed via CLI:
+To download and install Clustal Omega you can go to http://www.clustal.org/omega/ and follows the instructions. Nevertheless, if you have a linux based OS you may benefit of the suitable package manager. For instance, for macOS I use `Homebrew`, which can be installed via CLI:
 
 `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 
@@ -115,11 +115,13 @@ We can still integrate MUSCLE v5 into our R workflow by calling it as an externa
 # #     install.packages("BiocManager")
 # # BiocManager::install("Biostrings")
 # 
-# seqs <- Biostrings::AAStringSet(ara$prot)
+# sq <- ara$prot
+# names(sq) <- ara$phylo_id
+# seqs <- Biostrings::AAStringSet(sq)
 # 
 # ## --- Save the input sequences in a temporary file
-# destfile <- tempfile(pattern = "input_sequences", 
-#                      tmpdir = tempdir(), 
+# destfile <- tempfile(pattern = "input_sequences",
+#                      tmpdir = tempdir(),
 #                      fileext = ".fasta")
 # Biostrings::writeXStringSet(seqs, filepath = destfile)
 # 
