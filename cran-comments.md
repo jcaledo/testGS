@@ -1,6 +1,6 @@
-## Resubmision
+## Submission
 
-In the current version, the use of the Bioconductor package muscle (previously listed under Suggests) has been discontinued. Additionally, a new vignette has been introduced, providing various alternatives for performing multiple sequence alignments directly within the R environment.
+This submission can be considered a first submission, since a previous version of the package (orthGS v0.1.5) was archived. Now, in the current version, the use of the Bioconductor package muscle (previously listed under Suggests) has been discontinued. Additionally, a new vignette has been introduced, providing various alternatives for performing multiple sequence alignments directly within the R environment.
 
 ## Test environments 
 
