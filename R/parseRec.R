@@ -51,7 +51,9 @@ coltips <- function(phy){
 #' @param path2rec path to the file containing the reconciliation output.
 #' @details Mapping gene tree into species tree allow to infer the sequence of events (Duplication, Speciation, Transfer).
 #' @return A list with three elements. The first one is a 'phylo' object where the nodelabels indicate the event: D, duplication or T transfer. If no label is shown is because the event correspond to speciation. The second element is a dataframe (the first column is the label of the internal nodes in the gene tree; the second column is the label of the internal nodes in the species tree, and the third and fourth columns label each internal node according to the inferred event). The third element of the list is an adjacency matrix: 1 when two proteins are orthologous, 0 if they are paralogous.
-#' @examples mapTrees(fs::path_package("extdata", "representatives", package = "orthGS"))
+#' @examples
+#' file_path <- system.file("extdata", "representatives", package = "orthGS")
+#' mapTrees(file_path)
 #' @importFrom ape read.tree
 #' @importFrom castor get_pairwise_mrcas
 #' @export

@@ -24,7 +24,6 @@ Imports:
 Suggests: 
   BiocManager,
   Biostrings,
-  fs,
   knitr,
   rmarkdown,
   testthat
