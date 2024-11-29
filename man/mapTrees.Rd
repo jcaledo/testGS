@@ -19,5 +19,6 @@ Maps a gene/protein tree into a species tree
 Mapping gene tree into species tree allow to infer the sequence of events (Duplication, Speciation, Transfer).
 }
 \examples{
-mapTrees(fs::path_package("extdata", "representatives", package = "orthGS"))
+file_path <- system.file("extdata", "representatives", package = "orthGS")
+mapTrees(file_path)
 }

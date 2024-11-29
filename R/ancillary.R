@@ -57,7 +57,12 @@ msa <- function (sequences, ids = names(sequences), seqtype = "prot", method = "
     c <- c + 1
     sqs <- bio3d::seqbind(sqs, seqs[[c]], blank = "-")
   }
-  aln <- bio3d::seqaln(sqs, id = ids, exefile = method)
+
+  aln <- try(bio3d::seqaln(sqs, id = ids, exefile = method))
+  if (inherits(aln, "try-error")){
+    aln <- bio3d::seqaln(sqs, id = ids, exefile = "muscle")
+  }
+
   aln$seq <- sequences
   if (seqtype == "cds"){
     aln$cod <- aln$ali
